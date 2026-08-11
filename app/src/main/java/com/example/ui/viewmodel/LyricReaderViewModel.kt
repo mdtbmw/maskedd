@@ -83,23 +83,27 @@ class LyricReaderViewModel(application: Application) : AndroidViewModel(applicat
         allBookmarks = bookmarksFlow.asStateFlow()
 
         viewModelScope.launch(Dispatchers.IO) {
-            repository.allDocuments.collectLatest { docs ->
-                if (docs.isEmpty()) {
-                    // Populate initial sample documents on first launch
-                    val samples = DocumentParser.getInitialSampleDocuments()
-                    for (sample in samples) {
-                        repository.insertDocument(sample)
+            try {
+                repository.allDocuments.collectLatest { docs ->
+                    if (docs.isEmpty()) {
+                        // Populate initial sample documents on first launch
+                        val samples = DocumentParser.getInitialSampleDocuments()
+                        for (sample in samples) {
+                            repository.insertDocument(sample)
+                        }
+                    } else {
+                        docsFlow.value = docs
                     }
-                } else {
-                    docsFlow.value = docs
                 }
-            }
+            } catch (_: Exception) {}
         }
 
         viewModelScope.launch(Dispatchers.IO) {
-            repository.allBookmarks.collectLatest { bks ->
-                bookmarksFlow.value = bks
-            }
+            try {
+                repository.allBookmarks.collectLatest { bks ->
+                    bookmarksFlow.value = bks
+                }
+            } catch (_: Exception) {}
         }
 
         com.example.service.TtsPlaybackService.speechEngine = speechEngine

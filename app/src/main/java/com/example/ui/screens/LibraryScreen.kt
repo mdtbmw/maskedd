@@ -184,19 +184,16 @@ fun LibraryScreen(
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Box(
                                     modifier = Modifier
-                                        .size(40.dp)
+                                        .size(42.dp)
                                         .clip(CircleShape)
-                                        .background(
-                                            Brush.linearGradient(
-                                                colors = listOf(NeonPurple, NeonPink)
-                                            )
-                                        ),
+                                        .background(com.example.ui.theme.PlayfulYellow)
+                                        .shadow(4.dp, CircleShape, ambientColor = Color(0x10000000)),
                                     contentAlignment = Alignment.Center
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.GraphicEq,
                                         contentDescription = "App Logo",
-                                        tint = Color.White,
+                                        tint = com.example.ui.theme.CharcoalBlack,
                                         modifier = Modifier.size(22.dp)
                                     )
                                 }
@@ -205,16 +202,16 @@ fun LibraryScreen(
                                     Text(
                                         text = "MaskedD",
                                         style = MaterialTheme.typography.titleLarge.copy(
-                                            fontWeight = FontWeight.ExtraBold,
-                                            fontSize = 20.sp,
-                                            color = MaterialTheme.colorScheme.onBackground
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 22.sp,
+                                            color = com.example.ui.theme.CharcoalBlack
                                         )
                                     )
                                     Text(
-                                        text = "Neural Expressive Voice Reader",
+                                        text = "Listen & Reflect",
                                         style = MaterialTheme.typography.bodySmall.copy(
-                                            fontSize = 11.sp,
-                                            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+                                            fontSize = 12.sp,
+                                            color = Color(0xFF64748B)
                                         )
                                     )
                                 }
@@ -228,7 +225,7 @@ fun LibraryScreen(
                                     Icon(
                                         imageVector = Icons.Default.Bookmark,
                                         contentDescription = "Saved Bookmarks",
-                                        tint = MaterialTheme.colorScheme.primary
+                                        tint = com.example.ui.theme.CharcoalBlack
                                     )
                                 }
 
@@ -239,23 +236,28 @@ fun LibraryScreen(
                                     Icon(
                                         imageVector = Icons.Default.Settings,
                                         contentDescription = "Application Settings",
-                                        tint = MaterialTheme.colorScheme.primary
+                                        tint = com.example.ui.theme.CharcoalBlack
                                     )
                                 }
                             }
                         }
                     }
 
-                    // Item 2: Active Voice Character & Library Overview Hero Card
+                    // Item 2: Active Voice Character & Hero Illustration
                     item {
-                        Card(
+                        Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = 20.dp),
-                            shape = RoundedCornerShape(20.dp),
-                            colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.surfaceVariant
-                            )
+                                .padding(horizontal = 20.dp)
+                                .shadow(
+                                    elevation = 10.dp,
+                                    shape = RoundedCornerShape(24.dp),
+                                    ambientColor = Color(0x0D000000),
+                                    spotColor = Color(0x12000000)
+                                )
+                                .clip(RoundedCornerShape(24.dp))
+                                .background(Color.White)
+                                .border(1.dp, Color(0xFFF1F5F9), RoundedCornerShape(24.dp))
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
                                 // Active Voice Indicator
