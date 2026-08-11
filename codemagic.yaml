@@ -1,8 +1,11 @@
 workflows:
-  ios-multiplatform-release:
-    name: iOS Multiplatform Release Build
-    instance_type: mac_mini_m1
+  android-workflow:
+    name: Android Release Build
     max_build_duration: 60
+    instance_type: mac_mini_m1
+    environment:
+      vars:
+        JAVA_VERSION: 17
     scripts:
       - name: Set up Java 17
         script: |
@@ -15,7 +18,32 @@ workflows:
       - name: Make Gradle Wrapper Executable
         script: |
           chmod +x gradlew
-      - name: Build iOS Multiplatform XCFramework
+      - name: Build Android Release APK
+        script: |
+          ./gradlew assembleRelease
+    artifacts:
+      - app/build/outputs/apk/release/*.apk
+
+  ios-workflow:
+    name: iOS Multiplatform Build
+    max_build_duration: 60
+    instance_type: mac_mini_m1
+    environment:
+      vars:
+        JAVA_VERSION: 17
+    scripts:
+      - name: Set up Java 17
+        script: |
+          jdk-default 17
+      - name: Create .env Configuration
+        script: |
+          echo "GEMINI_API_KEY=${GEMINI_API_KEY:-AIzaSyBIWjn1ZwY4Ik5kA9bEVpSn_Yi7e7Yvj3A}" >> .env
+          echo "FISH_AUDIO_API_KEY=${FISH_AUDIO_API_KEY:-sk-fish-XE6y_b0FjtPoMv2Ix6ElVqoX8esWVSRpdjLEKfw-84I}" >> .env
+          echo "ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY:-sk_f419ef083a08e108b25968712c861c53312e25da41280c09}" >> .env
+      - name: Make Gradle Wrapper Executable
+        script: |
+          chmod +x gradlew
+      - name: Build iOS Multiplatform Shared Framework
         script: |
           ./gradlew :shared:assemble
     artifacts:
