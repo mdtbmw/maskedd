@@ -51,36 +51,52 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        appUpdateManager = com.example.update.AppUpdateManager(applicationContext, lifecycleScope)
-        appUpdateManager.checkForUpdates()
+        try {
+            appUpdateManager = com.example.update.AppUpdateManager(applicationContext, lifecycleScope)
+            appUpdateManager.checkForUpdates()
+        } catch (_: Exception) {}
 
         // Bind SpeechEngine to Services
-        TtsPlaybackService.speechEngine = viewModel.speechEngine
-        CognitiveOrbService.speechEngine = viewModel.speechEngine
+        try {
+            TtsPlaybackService.speechEngine = viewModel.speechEngine
+            CognitiveOrbService.speechEngine = viewModel.speechEngine
+        } catch (_: Exception) {}
 
         handleIncomingIntent(intent)
 
+        val prefs = getSharedPreferences("masked_d_app_prefs", MODE_PRIVATE)
+        val showOnboardingState = mutableStateOf(!prefs.getBoolean("has_completed_onboarding", false))
+
         setContent {
             val isDarkTheme by viewModel.isDarkTheme.collectAsState()
-            val updateInfo by appUpdateManager.updateState.collectAsState()
+            val updateInfo = if (::appUpdateManager.isInitialized) appUpdateManager.updateState.collectAsState().value else com.example.update.AppUpdateInfo()
 
             LyricReadTheme(darkTheme = isDarkTheme) {
                 Surface(modifier = Modifier.fillMaxSize()) {
                     Box(modifier = Modifier.fillMaxSize()) {
-                        LyricReadApp(
-                            viewModel = viewModel,
-                            incomingUri = incomingUriState.value,
-                            shortcutAction = pendingShortcutActionState.value,
-                            onClearIncomingUri = { incomingUriState.value = null },
-                            onClearShortcutAction = { pendingShortcutActionState.value = null }
-                        )
+                        if (showOnboardingState.value) {
+                            com.example.ui.screens.OnboardingScreen(
+                                onFinishOnboarding = {
+                                    prefs.edit().putBoolean("has_completed_onboarding", true).apply()
+                                    showOnboardingState.value = false
+                                }
+                            )
+                        } else {
+                            LyricReadApp(
+                                viewModel = viewModel,
+                                incomingUri = incomingUriState.value,
+                                shortcutAction = pendingShortcutActionState.value,
+                                onClearIncomingUri = { incomingUriState.value = null },
+                                onClearShortcutAction = { pendingShortcutActionState.value = null }
+                            )
+                        }
 
                         val userDismissedUpdate = rememberSaveable { mutableStateOf(false) }
 
-                        if (updateInfo.hasUpdate && !userDismissedUpdate.value) {
+                        if (updateInfo.hasUpdate && !userDismissedUpdate.value && !showOnboardingState.value) {
                             com.example.ui.screens.AppUpdateModal(
                                 updateInfo = updateInfo,
-                                onStartUpdate = { appUpdateManager.startApkDownload() },
+                                onStartUpdate = { if (::appUpdateManager.isInitialized) appUpdateManager.startApkDownload() },
                                 onDismiss = { userDismissedUpdate.value = true }
                             )
                         }

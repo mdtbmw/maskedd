@@ -611,7 +611,7 @@ fun LibraryScreen(
                                             text = category,
                                             style = MaterialTheme.typography.labelMedium.copy(
                                                 fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
-                                                color = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurfaceVariant
+                                                color = if (isSelected) com.example.ui.theme.CharcoalBlack else MaterialTheme.colorScheme.onSurfaceVariant
                                             )
                                         )
                                         Spacer(modifier = Modifier.width(6.dp))
@@ -619,7 +619,7 @@ fun LibraryScreen(
                                             modifier = Modifier
                                                 .clip(CircleShape)
                                                 .background(
-                                                    if (isSelected) Color.White.copy(alpha = 0.25f)
+                                                    if (isSelected) com.example.ui.theme.CharcoalBlack.copy(alpha = 0.15f)
                                                     else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.15f)
                                                 )
                                                 .padding(horizontal = 6.dp, vertical = 2.dp)
@@ -629,7 +629,7 @@ fun LibraryScreen(
                                                 style = MaterialTheme.typography.labelSmall.copy(
                                                     fontSize = 10.sp,
                                                     fontWeight = FontWeight.Bold,
-                                                    color = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurfaceVariant
+                                                    color = if (isSelected) com.example.ui.theme.CharcoalBlack else MaterialTheme.colorScheme.onSurfaceVariant
                                                 )
                                             )
                                         }

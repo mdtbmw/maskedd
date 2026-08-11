@@ -2,26 +2,42 @@ package com.example.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Spotify-style Lyric Canvas Palette
-val BackgroundDark = Color(0xFF090611)
-val BackgroundSurface = Color(0xFF130E22)
-val CardSurface = Color(0xFF1E1735)
-val CardSurfaceElevated = Color(0xFF2B214A)
+// Modern White-Dominated & Playful Yellow/Black Palette (Apple Minimalist Aesthetic)
+val PureWhite = Color(0xFFFFFFFF)
+val OffWhiteSurface = Color(0xFFF8FAFC)
+val CardWhite = Color(0xFFFFFFFF)
+val CardBorderSoft = Color(0xFFF1F5F9)
 
-// Vibrant Neon Accents
-val NeonPurple = Color(0xFFA855F7)
-val NeonPurpleLight = Color(0xFFC084FC)
-val NeonPink = Color(0xFFF43F5E)
-val NeonCyan = Color(0xFF06B6D4)
+val PlayfulYellow = Color(0xFFFACC15)
+val PlayfulYellowLight = Color(0xFFFEF08A)
+val PlayfulYellowDark = Color(0xFFEAB308)
+
+val CharcoalBlack = Color(0xFF111827)
+val CharcoalSoft = Color(0xFF1F2937)
+
+val TextMain = Color(0xFF0F172A)
+val TextMuted = Color(0xFF64748B)
+val TextSubtle = Color(0xFF94A3B8)
+
+// Legacy Dark Compatibility Tokens
+val BackgroundDark = Color(0xFF0F172A)
+val BackgroundSurface = Color(0xFF1E293B)
+val CardSurface = Color(0xFFFFFFFF)
+val CardSurfaceElevated = Color(0xFFF8FAFC)
+
+val NeonPurple = Color(0xFFFACC15)
+val NeonPurpleLight = Color(0xFFFEF08A)
+val NeonPink = Color(0xFF111827)
+val NeonCyan = Color(0xFF0EA5E9)
 val NeonEmerald = Color(0xFF10B981)
 val NeonAmber = Color(0xFFF59E0B)
 
 // Lyric State Colors
-val ActiveWordText = Color(0xFFFFFFFF)
-val ActiveWordBackground = Color(0xFF7C3AED)
-val ActiveWordGlow = Color(0xFFD8B4FE)
-val PastSentenceText = Color(0xFF94A3B8)
-val FutureSentenceText = Color(0xFF475569)
+val ActiveWordText = Color(0xFF0F172A)
+val ActiveWordBackground = Color(0xFFFACC15)
+val ActiveWordGlow = Color(0xFFFEF08A)
+val PastSentenceText = Color(0xFF64748B)
+val FutureSentenceText = Color(0xFF94A3B8)
 
 // Theme Presets for Lyrics View
 enum class LyricThemePreset(
@@ -32,20 +48,28 @@ enum class LyricThemePreset(
     val activePill: Color,
     val textMuted: Color
 ) {
+    SUNSHINE_WHITE(
+        title = "Playful White",
+        backgroundStart = Color(0xFFFFFFFF),
+        backgroundEnd = Color(0xFFF8FAFC),
+        activeText = Color(0xFF0F172A),
+        activePill = Color(0xFFFACC15),
+        textMuted = Color(0xFF64748B)
+    ),
     SPOTIFY_DARK(
-        title = "Spotify Midnight",
-        backgroundStart = Color(0xFF0F0B1E),
-        backgroundEnd = Color(0xFF05030A),
-        activeText = Color(0xFFFFFFFF),
-        activePill = Color(0xFF8B5CF6),
+        title = "Playful White",
+        backgroundStart = Color(0xFFFFFFFF),
+        backgroundEnd = Color(0xFFF8FAFC),
+        activeText = Color(0xFF0F172A),
+        activePill = Color(0xFFFACC15),
         textMuted = Color(0xFF64748B)
     ),
     MIDNIGHT_PURPLE(
-        title = "Neon Velvet",
-        backgroundStart = Color(0xFF2E1065),
-        backgroundEnd = Color(0xFF0F0728),
+        title = "Clean Charcoal",
+        backgroundStart = Color(0xFF111827),
+        backgroundEnd = Color(0xFF1F2937),
         activeText = Color(0xFFFFFFFF),
-        activePill = Color(0xFFEC4899),
+        activePill = Color(0xFFFACC15),
         textMuted = Color(0xFF94A3B8)
     ),
     PAPER_PARCHMENT(
@@ -53,23 +77,23 @@ enum class LyricThemePreset(
         backgroundStart = Color(0xFFFFFBEB),
         backgroundEnd = Color(0xFFFEF3C7),
         activeText = Color(0xFF1E1B4B),
-        activePill = Color(0xFFD97706),
+        activePill = Color(0xFFFACC15),
         textMuted = Color(0xFF78350F)
     ),
     CYBER_NEON(
-        title = "Cyber Matrix",
-        backgroundStart = Color(0xFF022C22),
-        backgroundEnd = Color(0xFF064E3B),
-        activeText = Color(0xFFECFDF5),
-        activePill = Color(0xFF10B981),
-        textMuted = Color(0xFF047857)
+        title = "Emerald Clean",
+        backgroundStart = Color(0xFFF0FDF4),
+        backgroundEnd = Color(0xFFDCFCE7),
+        activeText = Color(0xFF14532D),
+        activePill = Color(0xFFFACC15),
+        textMuted = Color(0xFF166534)
     ),
     OLED_BLACK(
-        title = "Pitch OLED",
+        title = "Minimal Pitch",
         backgroundStart = Color(0xFF000000),
-        backgroundEnd = Color(0xFF000000),
+        backgroundEnd = Color(0xFF111827),
         activeText = Color(0xFFFFFFFF),
-        activePill = Color(0xFF3B82F6),
-        textMuted = Color(0xFF525252)
+        activePill = Color(0xFFFACC15),
+        textMuted = Color(0xFF9CA3AF)
     )
 }
