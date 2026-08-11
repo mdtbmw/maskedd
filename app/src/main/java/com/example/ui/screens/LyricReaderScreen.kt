@@ -379,7 +379,7 @@ fun LyricReaderScreen(
                         barCount = 42,
                         onSeek = { fraction ->
                             val targetWord = (fraction * playbackProgress.totalWords).toInt()
-                            viewModel.speechEngine.seekToWord(targetWord)
+                            viewModel.seekToWordDebounced(targetWord)
                         },
                         modifier = Modifier.weight(1f)
                     )
@@ -419,7 +419,7 @@ fun LyricReaderScreen(
                                     KineticSprintReaderView(
                                         parsedDoc = doc,
                                         playbackProgress = playbackProgress,
-                                        onWordSeek = { wordIdx -> viewModel.speechEngine.seekToWord(wordIdx) }
+                                        onWordSeek = { wordIdx -> viewModel.seekToWordDebounced(wordIdx) }
                                     )
                                 }
                                 com.example.tts.DynamicFormatMode.DIALOGUE_ONLY -> {

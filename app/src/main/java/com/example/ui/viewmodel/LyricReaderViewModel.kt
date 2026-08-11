@@ -127,6 +127,16 @@ class LyricReaderViewModel(application: Application) : AndroidViewModel(applicat
         _isAutoScrollEnabled.value = enabled
     }
 
+    private var seekJob: kotlinx.coroutines.Job? = null
+
+    fun seekToWordDebounced(wordIndex: Int, debounceMs: Long = 150L) {
+        seekJob?.cancel()
+        seekJob = viewModelScope.launch {
+            kotlinx.coroutines.delay(debounceMs)
+            speechEngine.seekToWord(wordIndex)
+        }
+    }
+
     fun setSyncOffsetMs(offsetMs: Int) {
         speechEngine.setSyncOffsetMs(offsetMs)
     }

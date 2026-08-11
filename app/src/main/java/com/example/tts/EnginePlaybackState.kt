@@ -60,7 +60,7 @@ sealed class EnginePlaybackState {
             is Idle -> targetState is ProcessingAi || targetState is SynthesizingTts || targetState is Playing
             is ProcessingAi -> targetState is SynthesizingTts || targetState is Error || targetState is Idle
             is SynthesizingTts -> targetState is Playing || targetState is Error || targetState is Idle
-            is Playing -> targetState is Paused || targetState is SynthesizingTts || targetState is Idle || targetState is Error
+            is Playing -> targetState is Paused || targetState is SynthesizingTts || targetState is Playing || targetState is Idle || targetState is Error
             is Paused -> targetState is Playing || targetState is SynthesizingTts || targetState is Idle
             is Error -> targetState is Idle || targetState is ProcessingAi || targetState is SynthesizingTts || targetState is Playing
         }

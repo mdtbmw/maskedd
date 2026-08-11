@@ -193,7 +193,7 @@ class CloudVoiceSynthesizer(
         }
         val normalizedData = TextNormalizationPipeline.processFullPipeline(rawText)
         val textToSpeak = normalizedData.coarticulatedText.ifBlank { rawText }
-        val cleanText = textToSpeak.replace(Regex("<[^>]*>"), "").trim()
+        val cleanText = textToSpeak.replace(Regex("<[^>]*>|\\[.*?\\]"), "").trim()
 
         // 1. Analyze tone with Gemini API
         val geminiTone = com.example.ai.GeminiEmotionalToneAnalyzer.analyzeSegmentTone(cleanText)
@@ -205,24 +205,25 @@ class CloudVoiceSynthesizer(
         val activeCharacter = VoiceCharacterManager.selectedCharacter.value
         val primaryVoiceId = activeCharacter.elevenLabsVoiceId
 
+        val textPayload = respiratoryProsody.processedText.replace(Regex("\\[.*?\\]"), "").trim()
+
         // Check Disk LRU Cache first for instantaneous zero-latency playback
-        val cachedDiskFile = lruCacheManager.getCachedAudioFile(primaryVoiceId, respiratoryProsody.processedText)
+        val cachedDiskFile = lruCacheManager.getCachedAudioFile(primaryVoiceId, textPayload)
         if (cachedDiskFile != null && cachedDiskFile.exists() && cachedDiskFile.length() > 0) {
-            return AdaptiveNoiseGate.processAudioFile(cachedDiskFile, primaryVoiceId)
+            return cachedDiskFile
         }
 
         // Fetch fresh speech from ElevenLabs API with consistent locked Voice ID
         try {
             val file = fetchElevenLabsSpeech(
-                text = respiratoryProsody.processedText,
+                text = textPayload,
                 voiceId = primaryVoiceId,
                 stability = respiratoryProsody.stability,
                 similarityBoost = respiratoryProsody.similarityBoost,
                 style = respiratoryProsody.style
             )
             if (file != null && file.exists() && file.length() > 0) {
-                val cleanedFile = AdaptiveNoiseGate.processAudioFile(file, primaryVoiceId)
-                return lruCacheManager.saveToCache(primaryVoiceId, respiratoryProsody.processedText, cleanedFile)
+                return lruCacheManager.saveToCache(primaryVoiceId, textPayload, file)
             }
         } catch (e: Exception) {
             TtsDiagnosticLogger.log(
@@ -233,10 +234,9 @@ class CloudVoiceSynthesizer(
 
         // Secondary Neural Engine: Google AI Cloud Journey & Neural2 Voices
         try {
-            val googleFile = fetchGoogleNeuralSpeech(respiratoryProsody.processedText, activeCharacter.googleVoiceName)
+            val googleFile = fetchGoogleNeuralSpeech(textPayload, activeCharacter.googleVoiceName)
             if (googleFile != null && googleFile.exists() && googleFile.length() > 0) {
-                val cleanedFile = AdaptiveNoiseGate.processAudioFile(googleFile, primaryVoiceId)
-                return lruCacheManager.saveToCache(primaryVoiceId, respiratoryProsody.processedText, cleanedFile)
+                return lruCacheManager.saveToCache(primaryVoiceId, textPayload, googleFile)
             }
         } catch (e: Exception) {
             TtsDiagnosticLogger.log(
