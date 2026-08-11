@@ -1,0 +1,8 @@
+{
+  "name": "Remix MaskedD by Daniel",
+  "description": "Expressive document TTS reader with karaoke word sync, custom voice styles, and multi-format document parser.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

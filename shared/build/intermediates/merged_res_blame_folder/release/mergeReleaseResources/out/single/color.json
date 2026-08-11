@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.example.shared-release-41:/color/vector_tint_theme_color.xml",
+        "source": "com.example.shared-ui-release-22:/color/vector_tint_theme_color.xml"
+    },
+    {
+        "merged": "com.example.shared-release-41:/color/vector_tint_color.xml",
+        "source": "com.example.shared-ui-release-22:/color/vector_tint_color.xml"
+    }
+]

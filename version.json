@@ -1,0 +1,7 @@
+{
+  "versionCode": 2,
+  "versionName": "1.1.0",
+  "isMandatory": true,
+  "apkUrl": "https://github.com/mdtbmw/maskedd/releases/download/v1.1.0/app-release.apk",
+  "releaseNotes": "Zero-Downtime Neural Audio Router, EPUB support, and Compose Multiplatform iOS support."
+}

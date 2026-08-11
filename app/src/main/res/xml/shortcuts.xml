@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <shortcut
+        android:shortcutId="resume_book"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_media_play"
+        android:shortcutShortLabel="@string/shortcut_resume_short"
+        android:shortcutLongLabel="@string/shortcut_resume_long">
+        <intent
+            android:action="com.example.action.SHORTCUT_RESUME_BOOK"
+            android:targetPackage="com.aistudio.lyricread.oxxfzc"
+            android:targetClass="com.example.MainActivity" />
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="open_library"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:shortcutShortLabel="@string/shortcut_library_short"
+        android:shortcutLongLabel="@string/shortcut_library_long">
+        <intent
+            android:action="com.example.action.SHORTCUT_LIBRARY"
+            android:targetPackage="com.aistudio.lyricread.oxxfzc"
+            android:targetClass="com.example.MainActivity" />
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="load_document"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_add"
+        android:shortcutShortLabel="@string/shortcut_load_doc_short"
+        android:shortcutLongLabel="@string/shortcut_load_doc_long">
+        <intent
+            android:action="com.example.action.SHORTCUT_LOAD_DOC"
+            android:targetPackage="com.aistudio.lyricread.oxxfzc"
+            android:targetClass="com.example.MainActivity" />
+    </shortcut>
+
+</shortcuts>

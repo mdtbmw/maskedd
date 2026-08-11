@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MaskedD</string>
+    <string name="shortcut_resume_short">Resume Book</string>
+    <string name="shortcut_resume_long">Resume Current Book Reading</string>
+    <string name="shortcut_library_short">Library</string>
+    <string name="shortcut_library_long">Open Bookshelf &amp; Library</string>
+    <string name="shortcut_load_doc_short">Load Document</string>
+    <string name="shortcut_load_doc_long">Import PDF, EPUB, TXT, DOCX</string>
+</resources>
