@@ -125,7 +125,33 @@ fun BookmarksScreen(
                                         color = MaterialTheme.colorScheme.primary
                                     )
 
-                                    IconButton(onClick = { viewModel.deleteBookmark(bookmark.id) }) {
+                                    var bookmarkPendingDelete by remember { mutableStateOf<com.example.data.BookmarkEntity?>(null) }
+
+                                    bookmarkPendingDelete?.let { bmToDelete ->
+                                        AlertDialog(
+                                            onDismissRequest = { bookmarkPendingDelete = null },
+                                            title = { Text("Delete Bookmark?", fontWeight = FontWeight.Bold) },
+                                            text = { Text("Are you sure you want to remove this bookmark?") },
+                                            confirmButton = {
+                                                Button(
+                                                    onClick = {
+                                                        viewModel.deleteBookmark(bmToDelete.id)
+                                                        bookmarkPendingDelete = null
+                                                    },
+                                                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEF4444))
+                                                ) {
+                                                    Text("Delete", color = Color.White)
+                                                }
+                                            },
+                                            dismissButton = {
+                                                OutlinedButton(onClick = { bookmarkPendingDelete = null }) {
+                                                    Text("Cancel")
+                                                }
+                                            }
+                                        )
+                                    }
+
+                                    IconButton(onClick = { bookmarkPendingDelete = bookmark }) {
                                         Icon(
                                             imageVector = Icons.Default.Delete,
                                             contentDescription = "Delete Bookmark",

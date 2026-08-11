@@ -259,7 +259,7 @@ fun LyricReaderScreen(
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back",
-                            tint = Color.White
+                            tint = currentTheme.activeText
                         )
                     }
 
@@ -272,7 +272,7 @@ fun LyricReaderScreen(
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 17.sp,
-                                color = Color.White
+                                color = currentTheme.activeText
                             ),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis

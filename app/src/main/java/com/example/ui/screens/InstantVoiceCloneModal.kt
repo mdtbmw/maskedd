@@ -178,6 +178,16 @@ fun InstantVoiceCloneModal(
                         )
                     }
 
+                    val context = androidx.compose.ui.platform.LocalContext.current
+                    val micPermissionLauncher = androidx.activity.compose.rememberLauncherForActivityResult(
+                        contract = androidx.activity.result.contract.ActivityResultContracts.RequestPermission()
+                    ) { isGranted ->
+                        if (isGranted) {
+                            recordedFile = null
+                            recorder.startRecording(coroutineScope)
+                        }
+                    }
+
                     Box(
                         modifier = Modifier
                             .size(80.dp)
@@ -195,8 +205,15 @@ fun InstantVoiceCloneModal(
                                 if (isRecording) {
                                     recordedFile = recorder.stopRecording()
                                 } else {
-                                    recordedFile = null
-                                    recorder.startRecording(coroutineScope)
+                                    val hasPerm = androidx.core.content.ContextCompat.checkSelfPermission(
+                                        context, android.Manifest.permission.RECORD_AUDIO
+                                    ) == android.content.pm.PackageManager.PERMISSION_GRANTED
+                                    if (hasPerm) {
+                                        recordedFile = null
+                                        recorder.startRecording(coroutineScope)
+                                    } else {
+                                        micPermissionLauncher.launch(android.Manifest.permission.RECORD_AUDIO)
+                                    }
                                 }
                             },
                             modifier = Modifier.fillMaxSize().testTag("record_mic_button")

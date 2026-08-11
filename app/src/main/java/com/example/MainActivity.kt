@@ -75,11 +75,13 @@ class MainActivity : ComponentActivity() {
                             onClearShortcutAction = { pendingShortcutActionState.value = null }
                         )
 
-                        if (updateInfo.hasUpdate) {
+                        val userDismissedUpdate = rememberSaveable { mutableStateOf(false) }
+
+                        if (updateInfo.hasUpdate && !userDismissedUpdate.value) {
                             com.example.ui.screens.AppUpdateModal(
                                 updateInfo = updateInfo,
                                 onStartUpdate = { appUpdateManager.startApkDownload() },
-                                onDismiss = { }
+                                onDismiss = { userDismissedUpdate.value = true }
                             )
                         }
                     }

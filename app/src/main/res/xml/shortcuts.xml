@@ -9,7 +9,7 @@
         android:shortcutLongLabel="@string/shortcut_resume_long">
         <intent
             android:action="com.example.action.SHORTCUT_RESUME_BOOK"
-            android:targetPackage="com.aistudio.lyricread.oxxfzc"
+            android:targetPackage="com.aistudio.lyricread.dhehbq"
             android:targetClass="com.example.MainActivity" />
     </shortcut>
 
@@ -21,7 +21,7 @@
         android:shortcutLongLabel="@string/shortcut_library_long">
         <intent
             android:action="com.example.action.SHORTCUT_LIBRARY"
-            android:targetPackage="com.aistudio.lyricread.oxxfzc"
+            android:targetPackage="com.aistudio.lyricread.dhehbq"
             android:targetClass="com.example.MainActivity" />
     </shortcut>
 
@@ -33,7 +33,7 @@
         android:shortcutLongLabel="@string/shortcut_load_doc_long">
         <intent
             android:action="com.example.action.SHORTCUT_LOAD_DOC"
-            android:targetPackage="com.aistudio.lyricread.oxxfzc"
+            android:targetPackage="com.aistudio.lyricread.dhehbq"
             android:targetClass="com.example.MainActivity" />
     </shortcut>
 

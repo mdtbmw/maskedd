@@ -639,7 +639,32 @@ fun LibraryScreen(
                         }
                     }
 
-                    // Item 6..N: User Books / Documents
+                    var documentPendingDelete by remember { mutableStateOf<com.example.data.LyricDocumentEntity?>(null) }
+
+                    documentPendingDelete?.let { docToDelete ->
+                        AlertDialog(
+                            onDismissRequest = { documentPendingDelete = null },
+                            title = { Text("Delete Document?", fontWeight = FontWeight.Bold) },
+                            text = { Text("Are you sure you want to delete \"${docToDelete.title}\"? This action cannot be undone.") },
+                            confirmButton = {
+                                Button(
+                                    onClick = {
+                                        viewModel.deleteDocument(docToDelete.id)
+                                        documentPendingDelete = null
+                                    },
+                                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEF4444))
+                                ) {
+                                    Text("Delete", color = Color.White)
+                                }
+                            },
+                            dismissButton = {
+                                OutlinedButton(onClick = { documentPendingDelete = null }) {
+                                    Text("Cancel")
+                                }
+                            }
+                        )
+                    }
+
                     if (filteredDocs.isEmpty()) {
                         item {
                             Box(
@@ -676,7 +701,7 @@ fun LibraryScreen(
                                     document = doc,
                                     onClick = { onOpenDocument(doc) },
                                     onToggleFavorite = { viewModel.toggleFavorite(doc.id, doc.isFavorite) },
-                                    onDelete = { viewModel.deleteDocument(doc.id) }
+                                    onDelete = { documentPendingDelete = doc }
                                 )
                             }
                         }

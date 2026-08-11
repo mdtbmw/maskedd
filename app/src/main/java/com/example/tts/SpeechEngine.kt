@@ -484,11 +484,12 @@ class SpeechEngine(
         ambientMusicPlayer.setTtsActive(true)
         ambientMusicPlayer.start()
 
+        val activeStatusMsg = zeroDowntimeRouter.circuitStatus.value.activeTier.displayName
         _progressState.value = _progressState.value.copy(
             isPlaying = true,
             isPaused = false,
             currentSentenceIndex = startSentenceIdx,
-            engineStatusMessage = "Masked AI Active"
+            engineStatusMessage = activeStatusMsg
         )
 
         cloudVoiceSynthesizer.synthesizeAndPlay(
@@ -501,7 +502,7 @@ class SpeechEngine(
                         isPlaying = true,
                         isPaused = false,
                         currentSentenceIndex = startSentenceIdx,
-                        engineStatusMessage = "Masked AI Active"
+                        engineStatusMessage = zeroDowntimeRouter.circuitStatus.value.activeTier.displayName
                     )
                 }
 
