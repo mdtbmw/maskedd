@@ -1,4 +1,4 @@
-name: Automated Android & iOS Cloud Builder
+name: Automated Android Cloud Builder
 
 on:
   push:
@@ -35,25 +35,3 @@ jobs:
         with:
           name: app-release-apk
           path: app/build/outputs/apk/release/app-release.apk
-
-  build-ios:
-    runs-on: macos-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Setup Xcode Environment
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
-
-      - name: Build iOS Target in Cloud
-        run: |
-          echo "Building iOS Target via Cloud macOS Runner..."
-          ./gradlew :shared:assembleXCFramework || echo "Framework assembled."
